@@ -4,8 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "webpack -w",
+    "server": "node server.js",
+    "client": "cd client && npm run start",
+    "start":
+      "./node_modules/.bin/concurrently \"./node_modules/.bin/nodemon\" \"npm run client\"",
+    "build": "cd client && npm run build",
+    "deploy":
+      "npm run build && git add . && git commit -m \"Building for production\" && git push heroku master",
+    "seed": "node scripts/seedDB",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,21 +24,15 @@
     "url": "https://github.com/cheetahM/nytreact/issues"
   },
   "homepage": "https://github.com/cheetahM/nytreact#readme",
-  "dependencies": {
-    "body-parser": "^1.15.1",
-    "express": "^4.13.4",
-    "mongoose": "^4.4.20",
-    "morgan": "^1.7.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-router": "^2.4.1"
-  },
   "devDependencies": {
-    "axios": "^0.12.0",
-    "babel-core": "^6.9.1",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "webpack": "^1.13.1"
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.7",
+    "react-router-dom": "^4.1.2"
   }
 }
